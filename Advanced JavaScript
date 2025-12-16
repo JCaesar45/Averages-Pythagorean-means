@@ -1,0 +1,42 @@
+// Advanced JavaScript: Using modern features
+document.getElementById('calculateBtn').addEventListener('click', () => {
+  const data = Array.from({length: 10}, (_, i) => i + 1); // [1,2,...,10]
+  const result = pythagoreanMeans(data);
+  
+  // Show the results section
+  document.getElementById('statsSection').style.display = 'block';
+
+  // Display the computed means
+  const resultsDiv = document.getElementById('results');
+  resultsDiv.innerHTML = `
+    <p><strong>Arithmetic Mean:</strong> ${result.values.Arithmetic.toFixed(3)}</p>
+    <p><strong>Geometric Mean:</strong> ${result.values.Geometric.toFixed(3)}</p>
+    <p><strong>Harmonic Mean:</strong> ${result.values.Harmonic.toFixed(3)}</p>
+  `;
+
+  // Display the inequality check
+  document.getElementById('inequality').textContent = result.test;
+});
+
+// Function to compute means with modern JavaScript features
+function pythagoreanMeans(arr) {
+  const n = arr.length;
+  const sum = arr.reduce((acc, val) => acc + val, 0);
+  const product = arr.reduce((acc, val) => acc * val, 1);
+  const sumReciprocal = arr.reduce((acc, val) => acc + 1 / val, 0);
+
+  const arithmetic = sum / n;
+  const geometric = Math.pow(product, 1 / n);
+  const harmonic = n / sumReciprocal;
+
+  const testResult = arithmetic >= geometric && geometric >= harmonic ? 'yes' : 'no';
+
+  return {
+    values: {
+      Arithmetic: arithmetic,
+      Geometric: geometric,
+      Harmonic: harmonic
+    },
+    test: `is A >= G >= H ? ${testResult}`
+  };
+}
