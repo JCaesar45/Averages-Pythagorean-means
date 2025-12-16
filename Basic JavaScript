@@ -1,0 +1,24 @@
+function pythagoreanMeans(arr) {
+  const n = arr.length;
+  const sum = arr.reduce((acc, val) => acc + val, 0);
+  const product = arr.reduce((acc, val) => acc * val, 1);
+  const sumReciprocal = arr.reduce((acc, val) => acc + 1 / val, 0);
+
+  const arithmetic = sum / n;
+  const geometric = Math.pow(product, 1 / n);
+  const harmonic = n / sumReciprocal;
+
+  const result = {
+    values: {
+      Arithmetic: arithmetic,
+      Geometric: geometric,
+      Harmonic: harmonic
+    },
+    test: `is A >= G >= H ? ${arithmetic >= geometric && geometric >= harmonic ? 'yes' : 'no'}`
+  };
+
+  return result;
+}
+
+// Run the function with the set 1 through 10
+console.log(pythagoreanMeans([1,2,3,4,5,6,7,8,9,10]));
